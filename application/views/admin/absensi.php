@@ -204,11 +204,15 @@ for ($i = 1; $i < 31; $i++) {
                 html: 'Sedang singkronisasi dengan data mesin.',
             })
             Swal.showLoading()
+            // get data
+
             $.ajax({
-                url: "<?= base_url('two/soap.php') ?>",
-                // 'type': 'POST',
+                url: "http://localhost/simpeg-api/soap.php",
+                'type': 'POST',
                 // data: BankModal.form.serialize(),
-                data: {},
+                data: {
+                    'last_mesin': '<?= $last_mesin ?>'
+                },
                 success: function(data) {
                     Swal.close();
                     var json = JSON.parse(data);
@@ -216,10 +220,41 @@ for ($i = 1; $i < 31; $i++) {
                         Swal.fire("Singkroninasi Gagal", json['message'], "error");
                         return;
                     }
-                    Swal.fire("Singkronisasi Berhasil", "", "success");
+
+                    push_data = json['data'];
+                    jml_data = json['jml_data'];
+
+                    console.log(push_data);
+                    var jsonString = JSON.stringify(push_data);
+
+                    $.ajax({
+                        url: "<?= base_url('Admin/push_mesin') ?>",
+                        'type': 'POST',
+                        // data: BankModal.form.serialize(),
+                        data: {
+                            data: jsonString
+                        },
+                        success: function(data) {
+                            Swal.close();
+                            var json = JSON.parse(data);
+                            if (json['error']) {
+                                Swal.fire("Singkroninasi Gagal", json['message'], "error");
+                                return;
+                            }
+                            // console.log(jml_data);
+                            Swal.fire("Singkronisasi Berhasil", jml_data + ' data baru telah disingkronkan', "success").then((result) => {
+                                // $(location).attr('href', '<?= base_url() ?>');
+                                location.reload();
+                            });
+                        },
+                        error: function(e) {}
+                    });
                 },
                 error: function(e) {}
             });
+            // push data
+
+
         })
 
     })

@@ -96,6 +96,17 @@ class Admin extends CI_Controller
         $this->load->view('page', $data);
     }
 
+    public function push_mesin()
+    {
+        $data = $this->input->post();
+        $data = json_decode(stripslashes($data['data']));
+        $res = $this->AdminModel->push_mesin($data);
+        if ($res)
+            echo json_encode(['error' => false, 'message' => 'Data berhasil di Sinkronkan']);
+        else
+            echo json_encode(['error' => true, 'message' => 'Data gagal Sinkronkan']);
+    }
+
     public function absensi_bulanan()
     {
         $filter = $this->input->get();
@@ -108,6 +119,7 @@ class Admin extends CI_Controller
             'title' => 'Absensi',
             'page' => 'admin/absensi',
             'absensi' => $this->AdminModel->getAbsensi($filter),
+            'last_mesin' => $this->AdminModel->last_mesin(),
             'bulan' => $filter['bulan']
         ];
 

@@ -66,4 +66,44 @@
             $this->db->delete('user');
             ExceptionHandler::handleDBError($this->db->error(), "Hapus user", "User");
         }
+
+        public function last_mesin()
+        {
+            $this->db->from('absensi');
+            $this->db->limit(1, 'asc');
+            $this->db->where('mesin', 1);
+            $this->db->order_by('rec_time', 'desc');
+            $data = $this->db->get()->result_array();
+            if (empty($data))
+                return '2022-01-01 01:00:00';
+            else
+                return $data[0]['rec_time'];
+            // var_dump($data);
+            // die();
+        }
+
+        public function push_mesin($data)
+        {
+            $q2 = false;
+            $query = "INSERT INTO `absensi`(`id_pegawai`, `rec_time`, `jenis`, `st_absen`, `mesin`) VALUES ";
+            $i = 0;
+            foreach ($data as $dat) {
+                if ($i == 0)
+                    $query .= " ( '{$dat->id_pegawai}', '{$dat->rec_time}' , '{$dat->jenis}' , 'h', '1' )";
+                else
+                    $query .= ", ( '{$dat->id_pegawai}', '{$dat->rec_time}' , '{$dat->jenis}' , 'h', '1' )";
+                $i++;
+                // $dat['st_absen'] = 'h'
+                // $dat['mesin']
+                $q2 = true;
+            }
+            // echo $query;
+            if ($q2)
+                if ($this->db->simple_query($query)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            return true;
+        }
     }

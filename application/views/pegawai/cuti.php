@@ -17,7 +17,7 @@
                                 </button>
                             </div>
                         <?php endif; ?>
-                        <table class="table table-hover table-bordered" style="margin-top: 10px">
+                        <table id="FDTable" class="table table-hover table-bordered" style="margin-top: 10px">
                             <thead>
                                 <tr>
                                     <th width="50px">No</th>
@@ -63,3 +63,20 @@
         </div>
     </section>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#FDTable').DataTable({
+            // dom: "Bfrtip",
+            dom: '<?= $this->session->userdata('level') != '1' ? 'frtip' : 'Bfrtip' ?>',
+            buttons: [
+                'copy', 'excel'
+            ],
+
+            responsive: true,
+            select: true,
+            searching: true,
+
+        });
+    });
+</script>
