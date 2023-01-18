@@ -29,8 +29,9 @@ if (!function_exists('tanggal_indonesia')) {
 }
 
 if (!function_exists('bulan_indo')) {
-	function bulan_indo($x)
+	function bulan_indo(int $x)
 	{
+
 		$BULAN = [
 			0, 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
 		];
