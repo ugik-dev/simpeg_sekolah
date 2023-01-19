@@ -1,7 +1,10 @@
 <?php
-$thn = explode('-', $bulan)[0];
-$bln = explode('-', $bulan)[1];
-
+// $thn = explode('-', $bulan)[0];
+// $bln = explode('-', $bulan)[1];
+$bln = (int) $bulan;
+$thn = (int)$tahun;
+// $bln = 11;
+// $thn = 2022;
 $jlh_hari_kerja = 0;
 $td_tgl = '';
 $arr_tgl = [];
@@ -64,11 +67,12 @@ for ($i = 1; $i < 31; $i++) {
                             <div class="form-group row">
                                 <label for="tanggal" class="col-sm-2 col-form-label">Bulan / Tahun :</label>
                                 <div class="col-lg-3">
-                                    <input class="form-control" name="bulan" id="bulan" type="month" value="<?= $thn . '-' . $bln ?>">
+                                    <input class="form-control" name="bulan" id="bulan" type="month" value="<?= $thn . '-' . str_pad($bln, 2, '0', STR_PAD_LEFT) ?>">
+                                    <!-- <input class="form-control" name="bulan" id="bulan" type="month" value="2023-01"> -->
                                 </div>
                             </div>
                             <div class="form-group row" <?= $this->session->userdata('level') != '1' ? 'hidden' : '' ?>>
-                                <a class="btn btn-primary active" href=<?= base_url('admin/print_absensi_bulanan?bulan=' . $bulan) ?>><i class="fa fa-print mr-2"></i>Export PDF</a>
+                                <a class="btn btn-primary active" href=<?= base_url('admin/print_absensi_bulanan?bulan=' . $thn . '-' . $bln) ?>><i class="fa fa-print mr-2"></i>Export PDF</a>
                             </div>
                         </div>
                         <hr>

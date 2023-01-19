@@ -1,6 +1,6 @@
 <?php
 $thn = explode('-', $tanggal)[0];
-$bln = explode('-', $tanggal)[1];
+$bln = (int)explode('-', $tanggal)[1];
 $hari = (int)explode('-', $tanggal)[2];
 
 $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
@@ -239,17 +239,30 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                 AbsenModal.self.modal('show')
                 AbsenModal.form.trigger('reset');
                 console.log(currentData);
+                console.log('--1');
+                console.log('--2');
                 AbsenModal.id_pegawai.val(currentData['id']);
                 AbsenModal.nama_pegawai.val(currentData['nama']);
 
+                if ('undefined' !== typeof currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']) {
 
-                AbsenModal.rec_time_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11', 5));
-                AbsenModal.st_absen_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['st_absen']);
-                AbsenModal.id_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['id_absen']);
-
-                AbsenModal.rec_time_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['rec_time'].substr('11', 5));
-                AbsenModal.st_absen_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['st_absen']);
-                AbsenModal.id_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['id_absen']);
+                    AbsenModal.rec_time_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11', 5));
+                    AbsenModal.st_absen_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['st_absen']);
+                    AbsenModal.id_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['id_absen']);
+                } else {
+                    AbsenModal.rec_time_p.val('');
+                    AbsenModal.st_absen_p.val('');
+                    AbsenModal.id_p.val('');
+                }
+                if ('undefined' !== typeof currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']) {
+                    AbsenModal.rec_time_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['rec_time'].substr('11', 5));
+                    AbsenModal.st_absen_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['st_absen']);
+                    AbsenModal.id_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['id_absen']);
+                } else {
+                    AbsenModal.rec_time_s.val('');
+                    AbsenModal.st_absen_s.val('');
+                    AbsenModal.id_s.val('');
+                }
 
                 console.log(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11'));
             <?php } ?>

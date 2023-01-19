@@ -16,14 +16,17 @@
             foreach ($pegawai as $p) {
                 array_push($ptmp, $p['id']);
             }
-
+            // echo json_encode($filter);
+            // die();
+            // $ptmp = [1];
             $this->db->from('absensi as c');
             if (!empty($filter['tanggal'])) $this->db->where('date(rec_time)', $filter['tanggal']);
-            if (!empty($filter['bulan'])) $this->db->where('rec_time like "' . $filter['bulan'] . '%"');
+            if (!empty($filter['bulan'])) $this->db->where('month(rec_time)', $filter['bulan']);
+            // if (!empty($filter['tahun'])) $this->db->where('YEAR(rec_time)', $filter['tahun']);
             $this->db->where_in('id_pegawai', $ptmp);
             $res =  $this->db->get();
             $res =  DataStructure::absensi_rekap($pegawai, $res->result_array(), $sort);
-            // echo json_encode($res);
+            // echo json_encode($res->result_array());
             // die();
             return $res;
         }

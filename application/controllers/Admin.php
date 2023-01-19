@@ -81,6 +81,8 @@ class Admin extends CI_Controller
         $filter = $this->input->get();
 
         // $filter['tanggal'] = '2022-10-08';
+        // echo date('Y-m-d');
+        // die();
         if (empty($filter['tanggal'])) $filter['tanggal'] = date('Y-m-d');
 
         $tmp = date_create($filter['tanggal']);
@@ -92,7 +94,8 @@ class Admin extends CI_Controller
             'absensi' => $this->AdminModel->getAbsensi($filter, false),
             'tanggal' => $filter['tanggal']
         ];
-
+        // echo json_encode($data);
+        // die();
         $this->load->view('page', $data);
     }
 
@@ -115,14 +118,18 @@ class Admin extends CI_Controller
         $tmp = date_create($filter['bulan']);
         $filter['bulan'] =  date_format($tmp, "Y-m");
 
+        $filter['tahun'] = explode('-', $filter['bulan'])[0];
+        $filter['bulan'] = explode('-', $filter['bulan'])[1];
         $data = [
             'title' => 'Absensi',
             'page' => 'admin/absensi',
             'absensi' => $this->AdminModel->getAbsensi($filter),
             'last_mesin' => $this->AdminModel->last_mesin(),
-            'bulan' => $filter['bulan']
+            'bulan' => $filter['bulan'],
+            'tahun' => $filter['tahun']
         ];
-
+        // echo json_encode($data['absensi']);
+        // die();
         $this->load->view('page', $data);
     }
 
