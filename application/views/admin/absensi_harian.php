@@ -303,7 +303,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                             return;
                         }
                         Swal.fire("Simpan Berhasil", "", "success");
-                        // location.reload();
+                        location.reload();
                     },
                     error: function(e) {}
                 });

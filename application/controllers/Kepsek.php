@@ -114,17 +114,20 @@ class Kepsek extends CI_Controller
     public function absensi_bulanan()
     {
         $filter = $this->input->get();
+        // inisialisasi jika tidak ada filter bulan
         if (empty($filter['bulan'])) $filter['bulan'] = date('Y-m');
         $tmp = date_create($filter['bulan']);
         $filter['bulan'] =  date_format($tmp, "Y-m");
-        // echo $filter['bulan'];
-        // die();
+
+        $filter['tahun'] = explode('-', $filter['bulan'])[0];
+        $filter['bulan'] = explode('-', $filter['bulan'])[1];
 
         $data = [
             'title' => 'Absensi',
             'page' => 'admin/absensi',
             'absensi' => $this->AdminModel->getAbsensi($filter),
-            'bulan' => $filter['bulan']
+            'bulan' => $filter['bulan'],
+            'tahun' => $filter['tahun']
         ];
 
         $this->load->view('page', $data);

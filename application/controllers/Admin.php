@@ -534,9 +534,14 @@ class Admin extends CI_Controller
     public function print_absensi_bulanan()
     {
         $filter = $this->input->get();
+        $filter = $this->input->get();
+        // inisialisasi jika tidak ada filter bulan
         if (empty($filter['bulan'])) $filter['bulan'] = date('Y-m');
         $tmp = date_create($filter['bulan']);
         $filter['bulan'] =  date_format($tmp, "Y-m");
+
+        $filter['tahun'] = explode('-', $filter['bulan'])[0];
+        $filter['bulan'] = explode('-', $filter['bulan'])[1];
 
         $absensi = $this->AdminModel->getAbsensi($filter);
         $kepsek =  $this->UserModel->getPegawai(['status_user' => 'Y', 'level' => 3], true);

@@ -1,15 +1,15 @@
 <?php
-$thn = 2022;
-$bln = 10;
-$date = '2009-10-22';
-$sepparator = '-';
-$parts = explode($sepparator, $date);
-$dayForDate = date("l", mktime(0, 0, 0, 1, $bln, $thn));
+// $thn = 2022;
+// $bln = 10;
+// $date = '2009-10-22';
+// $sepparator = '-';
+// $parts = explode($sepparator, $date);
 
 // new
 
-$thn = explode('-', $bulan)[0];
-$bln = explode('-', $bulan)[1];
+$thn = $tahun;
+$bln = (int) $bulan;
+$dayForDate = date("l", mktime(0, 0, 0, 1, $bln, $thn));
 
 $jlh_hari_kerja = 0;
 $td_tgl = '';
@@ -52,7 +52,7 @@ for ($i = 1; $i < 31; $i++) {
                         <div class="form-group row">
                             <label for="tanggal" class="col-sm-2 col-form-label">Bulan / Tahun :</label>
                             <div class="col-lg-3">
-                                <input class="form-control" name="bulan" id="bulan" type="month" value="<?= $thn . '-' . $bln ?>">
+                                <input class="form-control" name="bulan" id="bulan" type="month" value="<?= $thn . '-' . str_pad($bln, 2, '0', STR_PAD_LEFT)  ?>">
                             </div>
                         </div>
                         <table class="table table-hover table-bordered" style="margin-top: 10px">

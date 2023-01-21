@@ -156,18 +156,24 @@ class Pegawai extends CI_Controller
     public function absensi()
     {
         $filter = $this->input->get();
+        // inisialisasi jika tidak ada filter bulan
         if (empty($filter['bulan'])) $filter['bulan'] = date('Y-m');
         $tmp = date_create($filter['bulan']);
         $filter['bulan'] =  date_format($tmp, "Y-m");
+
+        $filter['tahun'] = explode('-', $filter['bulan'])[0];
+        $filter['bulan'] = explode('-', $filter['bulan'])[1];
 
         $filter['id_pegawai'] = $this->session->userdata('id');
         // $data['absensi'] = $this->PegawaiModel->getAbsensi($filter);
         $this->load->model('AdminModel');
         $data['absensi'] = $this->AdminModel->getAbsensi($filter);
-
+        // echo json_encode($data['absensi']);
+        // die();
         $data['title'] = 'Absensi Bulanan';
         $data['page'] = 'pegawai/absensi_bulanan';
         $data['bulan'] = $filter['bulan'];
+        $data['tahun'] = $filter['tahun'];
         $this->load->view('page', $data);
     }
 
