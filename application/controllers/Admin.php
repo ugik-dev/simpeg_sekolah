@@ -534,7 +534,7 @@ class Admin extends CI_Controller
     public function print_absensi_bulanan()
     {
         $filter = $this->input->get();
-        $filter = $this->input->get();
+        // $filter = $this->input->get();
         // inisialisasi jika tidak ada filter bulan
         if (empty($filter['bulan'])) $filter['bulan'] = date('Y-m');
         $tmp = date_create($filter['bulan']);
@@ -545,7 +545,7 @@ class Admin extends CI_Controller
 
         $absensi = $this->AdminModel->getAbsensi($filter);
         $kepsek =  $this->UserModel->getPegawai(['status_user' => 'Y', 'level' => 3], true);
-        // echo json_encode($kepsek);
+        // echo json_encode($absensi);
         // die();
         $bulan = $filter['bulan'];
 
@@ -578,7 +578,7 @@ class Admin extends CI_Controller
         $pdf->SetFillColor(230, 230, 230);
         $pdf->Cell(190, 7, ' ', 0, 1, 'L', 0);
         $pdf->Cell(210, 5, 'SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK', 0, 1, 'C', 0);
-        $pdf->Cell(210, 5, 'BULAN ' . strtoupper(bulan_indo(explode('-', $bulan)[1])) . ' ' . explode('-', $bulan)[0], 0, 1, 'C', 0);
+        $pdf->Cell(210, 5, 'BULAN ' . strtoupper(bulan_indo($filter['bulan'])) . ' ' . $filter['tahun'], 0, 1, 'C', 0);
 
         $pdf->SetFont('Arial', '', 11);
         $pdf->Cell(210, 5, 'Yang bertandatangan di bawah ini : ', 0, 1, 'L', 0);
@@ -609,7 +609,7 @@ class Admin extends CI_Controller
         $pdf->MultiCell(205, 4, "Menyatakan dengan ini bertanggung jawab sepenuhnya terhadap kebenaran data absensi guru yang tertera pada daftar di bawah. Apabila di kemudian hari terbukti bahwa data yang saya berikan tidak sesuai dengan data sebenarnya sehingga dapat menyebabkan kerugian Negara dan kerugian pihak-pihak lain, saya bersedia di kenakan sanksi sesuai dengan ketentuan peraturan Perundang-undangan.");
         $pdf->Cell(3, 5, "", 0, 1, 'L', 0);
         $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(210, 5, 'DAFTAR ABSENSI KEHADIRAN GURU PEGAWAI BULAN ' . strtoupper(bulan_indo(explode('-', $bulan)[1])) . ' ' . explode('-', $bulan)[0], 0, 1, 'C', 0);
+        $pdf->Cell(210, 5, 'DAFTAR ABSENSI KEHADIRAN GURU PEGAWAI BULAN ' . strtoupper(bulan_indo($filter['bulan'])) . ' ' . $filter['tahun'], 0, 1, 'C', 0);
         $pdf->SetFont('Arial', '', 10);
         $pdf->Cell(3, 5, "", 0, 1, 'L', 0);
         $cur_x = $pdf->getX();
@@ -628,8 +628,8 @@ class Admin extends CI_Controller
         $pdf->MultiCell(13, 5, "Dinas\nLuar", 1, 'C');
         $pdf->SetXY($cur_x + 181, $cur_y);
         $pdf->MultiCell(26, 5, "Tidak Hadir\n(Termasuk DL)", 1, 'C');
-        $thn = explode('-', $bulan)[0];
-        $bln = explode('-', $bulan)[1];
+        $thn = $filter['tahun'];
+        $bln = (int) $filter['bulan'];
 
 
 
