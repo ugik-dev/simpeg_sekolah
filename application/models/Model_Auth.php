@@ -10,7 +10,5 @@ class Model_Auth extends CI_Model
             "password" => htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT))
         ];
         $this->db->insert('user', $data);
-        // $this->db->insert('jabatan', $data);
-        // $this->db->insert('pangkat', $data);
     }
 }

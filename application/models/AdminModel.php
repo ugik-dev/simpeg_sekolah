@@ -16,18 +16,16 @@
             foreach ($pegawai as $p) {
                 array_push($ptmp, $p['id']);
             }
-            // echo json_encode($filter);
-            // die();
-            // $ptmp = [1];
+
             $this->db->from('absensi as c');
             if (!empty($filter['tanggal'])) $this->db->where('date(rec_time)', $filter['tanggal']);
             if (!empty($filter['bulan'])) $this->db->where('month(rec_time)', $filter['bulan']);
-            // if (!empty($filter['tahun'])) $this->db->where('YEAR(rec_time)', $filter['tahun']);
+
             $this->db->where_in('id_pegawai', $ptmp);
             $res =  $this->db->get();
-            $res =  DataStructure::absensi_rekap($pegawai, $res->result_array(), $sort);
-            // echo json_encode($res->result_array());
+            // echo $this->db->last_query();
             // die();
+            $res =  DataStructure::absensi_rekap($pegawai, $res->result_array(), $sort);
             return $res;
         }
 
@@ -39,7 +37,6 @@
                 $this->db->where('id_absen', $data['id_absen']);
                 $this->db->update('absensi', $data);
             }
-            // echo $this->db->last_query();
         }
 
         public function rec_pengumuman($data)
@@ -81,8 +78,6 @@
                 return '2022-01-01 01:00:00';
             else
                 return $data[0]['rec_time'];
-            // var_dump($data);
-            // die();
         }
 
         public function push_mesin($data)
@@ -96,11 +91,8 @@
                 else
                     $query .= ", ( '{$dat->id_pegawai}', '{$dat->rec_time}' , '{$dat->jenis}' , 'h', '1' )";
                 $i++;
-                // $dat['st_absen'] = 'h'
-                // $dat['mesin']
                 $q2 = true;
             }
-            // echo $query;
             if ($q2)
                 if ($this->db->simple_query($query)) {
                     return true;

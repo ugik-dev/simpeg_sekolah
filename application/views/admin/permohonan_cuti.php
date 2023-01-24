@@ -6,9 +6,7 @@
                 <div class="row mt-5">
                     <div class="col-lg-12 mt-2">
                         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
-                        <!-- <a href="<?= base_url(); ?>pegawai/add_cuti" class="btn btn-primary mb-3">
-                    Tambah
-                </a> -->
+
                         <?php if ($this->session->flashdata('error')) : ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong> <?= $this->session->flashdata('error'); ?></strong>
@@ -18,9 +16,7 @@
                             </div>
                         <?php endif; ?>
                         <div class="dropdown mb-3">
-                            <a <?= $this->session->userdata('level') != '1' ? 'hidden' : '' ?> class="col-lg-12 btn btn-secondary  mb-3" href="<?= base_url('admin/export_lap_cuti') ?>">
-                                <i class='fa fa-save'></i> Export
-                            </a>
+
                             <button <?= $this->session->userdata('level') != '1' ? 'hidden' : '' ?> class="col-lg-12 btn btn-secondary dropdown-toggle mb-3" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Filters
                             </button>
@@ -29,7 +25,6 @@
                                     <form method="get">
                                         <div class="form-row">
                                             <div class="form-group col-lg-6">
-                                                <!-- <div class="form-group col-md-12"> -->
                                                 <label for="inputEmail4">Tanggal Cuti</label>
                                                 <div class="row">
                                                     <div class="col">
@@ -42,13 +37,7 @@
                                                         <input type="date" name="tgl_end" value="<?= !empty($filter['tgl_end']) ? $filter['tgl_end'] : '' ?>" class="form-control" placeholder="">
                                                     </div>
                                                 </div>
-                                                <!-- <div class="row">
 
-                                                        <input type="date" class="form-control col-lg-3" id="inputEmail4" placeholder="Email">
-                                                        <label for=""> s.d. </label>
-                                                        <input type="date" class="form-control" id="inputPassword4" placeholder="Password">
-                                                    </div> -->
-                                                <!-- </div> -->
 
                                             </div>
                                             <div class="form-group col-md-3">
@@ -84,7 +73,7 @@
                                                     <a href="<?= base_url($link_reset) ?>" class="btn btn-secondary">Reset <i class="fa fa-refresh  ml-2"></i></a>
                                                 </div>
                                             </div>
-                                            <!-- <button class="btn btn-primary" type="submit">Cari</button> -->
+
                                     </form>
                                 </div>
 
@@ -102,7 +91,6 @@
                                     <th scope="col">Sampai Tgl</th>
                                     <th scope="col">Jenis</th>
                                     <th scope="col">Lama</th>
-                                    <!-- <th scope="col">Alasan</th> -->
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -125,15 +113,12 @@
                                                 echo ', N : ' . $kt['n'];
                                             } ?></td>
                                         <td class="text-capitalize"><?= $kt['lama'] . ' ' . $kt['satuan']; ?></td>
-                                        <!-- <td class="text-capitalize"><?= $kt['alasan']; ?></td> -->
                                         <td class="text-center">
-                                            <!-- <div class="row"> -->
                                             <div class="btn-group mr-2" role="group" aria-label="Aksi">
                                                 <a href="<?= base_url(); ?>preview_cuti/<?= $kt['id_cuti'] ?>" class="btn btn-sm btn-secondary text-dark"><i class="fas fa-eye"></i></a>
                                                 <?php if ($this->session->userdata('id') != $kt['id_pegawai']) { ?>
                                                     <a type="button" data-id="<?= $kt['id_cuti'] ?>" class="action btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
                                                 <?php } ?>
-                                                <!-- <a href="<?= base_url(); ?>pegawai/hapus_cuti/<?= $kt['id_cuti'] ?>" class="btn btn-sm btn-danger text-light tombol-hapus"><i class="fas fa-trash-alt"></i></a> -->
                                             </div>
                                         </td>
                                     </tr>

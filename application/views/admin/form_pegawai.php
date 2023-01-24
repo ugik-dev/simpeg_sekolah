@@ -120,10 +120,6 @@
                                     <label for="jurusan">Jurusan</label>
                                     <input type="text" class="form-control" name="jurusan" value="<?= !empty($return['jurusan']) ? $return['jurusan']  : '';  ?>">
                                 </div>
-                                <!-- <div class="form-group col-md-6">
-                                    <label for="sertifikasi">Seritifikasi</label>
-                                    <input type="text" class="form-control" name="sertifikasi" value="<?= !empty($return['sertifikasi']) ? $return['sertifikasi']  : '';  ?>">
-                                </div> -->
                                 <div class="form-group col-md-6">
                                     <label for="tmt_kerja">TMT Kerja</label>
                                     <input type="date" class="form-control" name="tmt_kerja" value="<?= !empty($return['tmt_kerja']) ? $return['tmt_kerja']  : '';  ?>">

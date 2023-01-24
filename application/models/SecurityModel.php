@@ -74,22 +74,4 @@ class SecurityModel extends CI_Model
     'label' => 'Konfirmasi Password',
     'rules' => 'required|trim|matches[password]'
   );
-
-  private $tahun = array(
-    'field' => 'tahun',
-    'label' => 'Tahun',
-    'rules' => 'required|trim|exact_length[4]'
-  );
-
-  private $semester = array(
-    'field' => 'semester',
-    'label' => 'Semester',
-    'rules' => 'required|trim'
-  );
-
-  private $bulan = array(
-    'field' => 'bulan',
-    'label' => 'Bulan',
-    'rules' => 'required|trim|max_length[2]'
-  );
 }

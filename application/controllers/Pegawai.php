@@ -81,65 +81,6 @@ class Pegawai extends CI_Controller
         $this->load->view('page', $data);
     }
 
-
-    public function bank_data()
-    {
-        $filter['id_pegawai'] = $this->session->userdata('id');
-        $data['user'] = $this->PegawaiModel->getAllBankData($filter);
-        $data['title'] = 'Bank Data';
-        $data['page'] = 'pegawai/bank_data';
-        $this->load->view('page', $data);
-    }
-
-
-
-    public function addBankData()
-    {
-        try {
-            $data = $this->input->post();
-            $config['upload_path']          = './uploads/bank_data';
-            $config['allowed_types']        = 'pdf';
-            $config['encrypt_name']            = true;
-            $this->load->library('upload', $config);
-            if (!$this->upload->do_upload('file_data')) {
-                throw new UserException($this->upload->display_errors(), UNAUTHORIZED_CODE);
-            } else {
-                $data['doc_bank_data'] =  $this->upload->data()['file_name'];
-            }
-            $data['id_pegawai'] = $this->session->userdata()['id_user'];
-            $id = $this->PegawaiModel->addBankData($data);
-            $data = $this->PegawaiModel->getAllBankData(['id_bank_data' => $id])[$id];
-            echo json_encode(['error' => false, 'data' => $data]);
-        } catch (Exception $e) {
-            ExceptionHandler::handle($e);
-        }
-    }
-
-    public function editBankData()
-    {
-        try {
-            $data = $this->input->post();
-            if (!empty($_FILES['file_data']['name'])) {
-                $config['upload_path']          = './uploads/bank_data';
-                $config['allowed_types']        = 'pdf';
-                $config['encrypt_name']            = true;
-                $this->load->library('upload', $config);
-                if (!$this->upload->do_upload('file_data')) {
-                    throw new UserException($this->upload->display_errors(), UNAUTHORIZED_CODE);
-                    // $this->load->view('upload_form', $error);
-                } else {
-                    $data['doc_bank_data'] =  $this->upload->data()['file_name'];
-                }
-            }
-            $data['id_pegawai'] = $this->session->userdata()['id_user'];
-            $this->PegawaiModel->editBankData($data);
-            $data = $this->PegawaiModel->getAllBankData(['id_bank_data' => $data['id_bank_data']])[$data['id_bank_data']];
-            echo json_encode(['error' => false, 'data' => $data]);
-        } catch (Exception $e) {
-            ExceptionHandler::handle($e);
-        }
-    }
-
     public function cuti()
     {
         $filter = $this->input->get();
@@ -265,17 +206,6 @@ class Pegawai extends CI_Controller
     public function hapus_cuti($id)
     {
         $data = $this->PegawaiModel->getCuti(['id_pegawai' => $this->session->userdata()['id_user'], 'id_cuti' => $id])[$id];
-        // if ($data['status_cuti'] == 'tol_adm') {
-        //     $this->session->set_flashdata('error', 'Cuti tidak dapat dihapus, karna ditolak admin');
-        //     redirect('pegawai/cuti');
-        //     return;
-        // }
-
-        // if ($data['status_cuti'] == 'tol_kepsek') {
-        //     $this->session->set_flashdata('error', 'Cuti tidak dapat dihapus, karna ditolak admin');
-        //     redirect('pegawai/cuti');
-        //     return;
-        // }
 
 
         if ($data['status_cuti'] == 'acc_adm') {

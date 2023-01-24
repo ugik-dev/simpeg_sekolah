@@ -1,10 +1,7 @@
 <?php
-// $thn = explode('-', $bulan)[0];
-// $bln = explode('-', $bulan)[1];
 $bln = (int) $bulan;
 $thn = (int)$tahun;
-// $bln = 11;
-// $thn = 2022;
+
 $jlh_hari_kerja = 0;
 $td_tgl = '';
 $arr_tgl = [];
@@ -32,7 +29,8 @@ for ($i = 1; $i < 31; $i++) {
     td {
         border: 1px solid;
         min-width: 30px;
-        /* background-color: yellow; */
+
+
     }
 
     .green {
@@ -48,9 +46,9 @@ for ($i = 1; $i < 31; $i++) {
     }
 
     .absensi .nama {
-        /* border: 1; */
+
         width: 100px;
-        /* background-color: yellow; */
+
     }
 </style>
 <div class="main-content">
@@ -68,7 +66,7 @@ for ($i = 1; $i < 31; $i++) {
                                 <label for="tanggal" class="col-sm-2 col-form-label">Bulan / Tahun :</label>
                                 <div class="col-lg-3">
                                     <input class="form-control" name="bulan" id="bulan" type="month" value="<?= $thn . '-' . str_pad($bln, 2, '0', STR_PAD_LEFT) ?>">
-                                    <!-- <input class="form-control" name="bulan" id="bulan" type="month" value="2023-01"> -->
+
                                 </div>
                             </div>
                             <div class="form-group row" <?= $this->session->userdata('level') != '1' ? 'hidden' : '' ?>>
@@ -83,9 +81,6 @@ for ($i = 1; $i < 31; $i++) {
                             <thead>
                                 <tr>
                                     <th width="50px" rowspan="2">Nama Pegawai</th>
-                                    <!-- <th scope="col">Tanggal</th> -->
-                                    <!-- <th scope="col" rowspan="2">Pagi / Sore</th> -->
-                                    <!-- <th scope="col" rowspan="2">Sore</th> -->
                                     <th scope="col" class="goto" colspan="<?= $jlh_hari_kerja ?>">Tanggal</th>
                                 </tr>
                                 <tr>
@@ -108,9 +103,7 @@ for ($i = 1; $i < 31; $i++) {
 
                                         $absensi[$key]['h']++;
                                         echo '<td class="edit green" data-ids="' . $usr['child'][$thn][$bln][$i]['s']['id_absen'] . '" data-idp="' . $usr['child'][$thn][$bln][$i]['p']['id_absen'] . '">.</td>';
-                                    }
-                                    // echo (!empty($usr['child'][$thn][$bln][$i]['s']) && !empty($usr['child'][$thn][$bln][$i]['p']) ? '<td class="edit green" data-id="">.' : '<td class="edit red">a') . '</>';
-                                    else if (!empty($usr['child'][$thn][$bln][$i]['p'])) {
+                                    } else if (!empty($usr['child'][$thn][$bln][$i]['p'])) {
                                         if ($usr['child'][$thn][$bln][$i]['p']['st_absen'] == 'i')
                                             $absensi[$key]['i']++;
                                         if ($usr['child'][$thn][$bln][$i]['p']['st_absen'] == 's')
@@ -145,11 +138,9 @@ for ($i = 1; $i < 31; $i++) {
                                     <th style="width: 90px">Cuti</th>
                                     <th style="width: 90px">Dinas Luar</th>
                                     <th style="width: 90px">Tidak Hadir Termasuk DL</th>
-                                    <!-- <th scope="col" class="goto" colspan="<?= $jlh_hari_kerja ?>">Tanggal</th> -->
-                                </tr>
-                                <!-- <tr>
 
-                                </tr> -->
+                                </tr>
+
 
                             </thead>
 
@@ -213,7 +204,6 @@ for ($i = 1; $i < 31; $i++) {
             $.ajax({
                 url: "http://localhost/simpeg-api/soap.php",
                 'type': 'POST',
-                // data: BankModal.form.serialize(),
                 data: {
                     'last_mesin': '<?= $last_mesin ?>'
                 },
@@ -234,7 +224,6 @@ for ($i = 1; $i < 31; $i++) {
                     $.ajax({
                         url: "<?= base_url('Admin/push_mesin') ?>",
                         'type': 'POST',
-                        // data: BankModal.form.serialize(),
                         data: {
                             data: jsonString
                         },
@@ -245,9 +234,9 @@ for ($i = 1; $i < 31; $i++) {
                                 Swal.fire("Singkroninasi Gagal", json['message'], "error");
                                 return;
                             }
-                            // console.log(jml_data);
+
                             Swal.fire("Singkronisasi Berhasil", jml_data + ' data baru telah disingkronkan', "success").then((result) => {
-                                // $(location).attr('href', '<?= base_url() ?>');
+
                                 location.reload();
                             });
                         },
@@ -256,7 +245,7 @@ for ($i = 1; $i < 31; $i++) {
                 },
                 error: function(e) {}
             });
-            // push data
+
 
 
         })

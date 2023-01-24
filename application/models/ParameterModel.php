@@ -21,7 +21,6 @@ class ParameterModel extends CI_Model
     public function ref_cuti($filter = [])
     {
         $this->db->from('ref_cuti');
-        // $this->db->order_by('urutan_jabatan');
         $res =  $this->db->get();
         return  $res->result_array()[0];
     }
@@ -70,8 +69,5 @@ class ParameterModel extends CI_Model
         } else {
             return false;
         }
-        // $this->db->set('status', 1);
-        // $this->db->where('id_notif', $data);
-        // $this->db->update('notif');
     }
 }

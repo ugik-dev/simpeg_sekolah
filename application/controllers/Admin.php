@@ -405,132 +405,7 @@ class Admin extends CI_Controller
             redirect('admin/user');
         }
     }
-    public function export_lap_cuti()
-    {
-        $data['filter'] =  $filter = $this->input->get();
-        $filter['status_cuti'] = 'acc_kepsek';
-        // untuk membaca notifikasi dan berubah status menjadi sudah dibaca
-        $data = $this->PegawaiModel->getCuti($filter);
 
-        $filter = $this->input->get();
-        if (empty($filter['tahun'])) $filter['tahun'] = date('Y');
-        // var_dump($filter);
-        // echo json_encode($data);
-        // die();
-        $tahun = $filter['tahun'];
-
-        require('assets/fpdf/mc_table.php');
-
-        $pdf = new PDF_MC_Table('L', 'mm', array(220, 360));
-
-
-        $pdf->SetTitle('Rekap Laporan Cuti ' . $tahun);
-        $pdf->SetMargins(10, 10, 10, 10, 'C');
-        $pdf->AddPage();
-        // $pdf->Image(base_url('assets/img/tutwurihandayani.jpg'), 20, 2, 20, 20);
-        $pdf->SetFont('Arial', '', 11);
-        // $pdf->Cell(25, 6, '', 0, 0, 'C');
-        // $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(50, 10, 'Format : PEG-9', 1, 0, 'C');
-        $pdf->Cell(200, 5, ' ', 0, 0, 'C');
-        $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(84, 5, 'Nomor Statistik Sekolah', 0, 1, 'C');
-        $pdf->SetFont('Arial', '', 11);
-        $pdf->Cell(250, 5, ' ', 0, 0, 'C');
-        for ($i = 0; $i < 12; $i++) {
-            $pdf->Cell(7, 5, '', 1, 0, 'C');
-        }
-        $pdf->Cell(7, 5, '', 0, 1, 'C');
-        $pdf->Cell(7, 5, '', 0, 1, 'C');
-        // $pdf->Cell(80, 5, 'Nomor Statistik Sekolah', 1, 1, 'C');
-        // $pdf->SetX()
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(335, 5, 'BUKU CUTI PEGAWAI/GURU', 0, 1, 'C');
-        $pdf->Cell(335, 5, 'SMK NEGERI 1 PARITTIGA', 0, 1, 'C');
-        $pdf->Cell(335, 5, 'TAHUN : ' . $tahun, 0, 1, 'C');
-        $pdf->SetFont('Arial', '', 11);
-        // $pdf->SetFont('Arial', '', 11);
-        $pdf->Cell(25, 4, '', 0, 1, 'C');
-        $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(10, 12, 'NO.', 1, 0, 'C');
-        $pdf->Cell(55, 12, 'Nama Pegawai.', 1, 0, 'C');
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(110, 6, 'Cuti yang telah Diambil Dalam Tahun Kalender yang Lampau', 1, 0, 'C');
-        $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(110, 6, 'Cuti yang telah Diambil Dalam Tahun Ini ', 1, 0, 'C');
-        $pdf->Cell(50, 12, 'Keteragan ', 1, 1, 'C');
-        $pdf->SetY($pdf->GetY() - 6);
-        $pdf->Cell(65, 6, '', 0, 0, 'C');
-        $pdf->Cell(30, 6, 'Jumlah Cuti', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Dari tanggal s.d tanggal', 1, 0, 'C');
-        $pdf->Cell(30, 6, 'Berapa Hari', 1, 0, 'C');
-        $pdf->Cell(30, 6, 'Jumlah Cuti', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Dari tanggal s.d tanggal', 1, 0, 'C');
-        $pdf->Cell(30, 6, 'Berapa Hari', 1, 1, 'C');
-        $pdf->Cell(10, 6, '1', 1, 0, 'C');
-        $pdf->Cell(55, 6, '2', 1, 0, 'C');
-        $pdf->Cell(30, 6, '3', 1, 0, 'C');
-        $pdf->Cell(50, 6, '4', 1, 0, 'C');
-        $pdf->Cell(30, 6, '5', 1, 0, 'C');
-        $pdf->Cell(30, 6, '6', 1, 0, 'C');
-        $pdf->Cell(50, 6, '7', 1, 0, 'C');
-        $pdf->Cell(30, 6, '8', 1, 0, 'C');
-        $pdf->Cell(50, 6, '9', 1, 1, 'C');
-        $pdf->SetFont('Arial', '', 11);
-
-        $i = 1;
-        foreach ($data as $d) {
-
-            $pdf->Cell(10, 6, $i, 1, 0, 'C');
-            $pdf->Cell(55, 6, $d['nama'], 1, 0, 'L');
-            if ($d['id_jenis_cuti'] == '1') {
-                if (!empty($d['n1'])) {
-                    $pdf->Cell(30, 6, $d['n1'], 1, 0, 'C');
-                    $pdf->Cell(50, 6, $d['dari'] . ' s.d ' . $d['sampai'], 1, 0, 'C');
-                    $pdf->Cell(30, 6, $d['n1'] . ' hari', 1, 0, 'C');
-                } else {
-                    $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                    $pdf->Cell(50, 6, ' ', 1, 0, 'C');
-                    $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                }
-                if (!empty($d['n'])) {
-                    $pdf->Cell(30, 6, $d['n'], 1, 0, 'C');
-                    $pdf->Cell(50, 6, $d['dari'] . ' s.d ' . $d['sampai'], 1, 0, 'C');
-                    $pdf->Cell(30, 6, $d['n'] . ' hari', 1, 0, 'C');
-                } else {
-                    $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                    $pdf->Cell(50, 6, ' ', 1, 0, 'C');
-                    $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                }
-            } else {
-                $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                $pdf->Cell(50, 6, ' ', 1, 0, 'C');
-                $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                $pdf->Cell(30, 6, ' ', 1, 0, 'C');
-                $pdf->Cell(50, 6, $d['dari'] . ' s.d ' . $d['sampai'], 1, 0, 'C');
-                $pdf->Cell(30, 6, $d['lama'] . ' ' . $d['satuan'], 1, 0, 'C');
-            }
-            $pdf->Cell(50, 6, $d['nama_jenis_cuti'], 1, 1, 'L');
-            // echo json_encode($d);
-            // die();
-            $i++;
-        }
-        $kepsek =  $this->UserModel->getPegawai(['status_user' => 'Y', 'level' => 3], true);
-        $pdf->CheckPageBreak(65);
-        $pdf->Cell(100, 5, '', 0, 1, 'C', 0);
-        $pdf->Cell(250, 5, '', 0, 0, 'C', 0);
-        $pdf->Cell(70, 5, 'Parittiga, ' . tanggal_indonesia(date('Y-m-d')), 0, 1, 'C', 0);
-        $pdf->Cell(250, 5, '', 0, 0, 'C', 0);
-        $pdf->Cell(70, 5, $kepsek['jabatan'], 0, 1, 'C', 0);
-        $pdf->Cell(1, 30, '', 0, 1, 'C', 0);
-        $pdf->Cell(250, 5, '', 0, 0, 'C', 0);
-        $pdf->Cell(70, 5, $kepsek['nama'], 0, 1, 'C', 0);
-        $pdf->Cell(250, 5, '', 0, 0, 'C', 0);
-        $pdf->Cell(70, 5, 'NIP ' . $kepsek['nip'], 0, 1, 'C', 0);
-        $filename = 'Rekap Laporan Cuti ' . $tahun . ".pdf";
-
-        $pdf->Output('', $filename, false);
-    }
     public function print_absensi_bulanan()
     {
         $filter = $this->input->get();
@@ -545,8 +420,7 @@ class Admin extends CI_Controller
 
         $absensi = $this->AdminModel->getAbsensi($filter);
         $kepsek =  $this->UserModel->getPegawai(['status_user' => 'Y', 'level' => 3], true);
-        // echo json_encode($absensi);
-        // die();
+
         $bulan = $filter['bulan'];
 
         require('assets/fpdf/mc_table.php');

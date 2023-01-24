@@ -97,12 +97,6 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                                     echo '<td class="' . ($tmp_s ? 'yellow' : 'red') . '" >' . ($tmp_status ? $tmp_status : '-') . '</td>';
                                 }
                                 echo '</td>';
-                                // if (!empty($usr['child'][$thn][$bln][$hari]['s']) && !empty($usr['child'][$thn][$bln][$i]['p']))
-                                //     echo '<td class="edit green" data-ids="' . $usr['child'][$thn][$bln][$i]['s']['id_absen'] . '" data-idp="' . $usr['child'][$thn][$bln][$i]['p']['id_absen'] . '">.</td>';
-                                // // echo (!empty($usr['child'][$thn][$bln][$i]['s']) && !empty($usr['child'][$thn][$bln][$i]['p']) ? '<td class="edit green" data-id="">.' : '<td class="edit red">a') . '</>';
-                                // else {
-                                //     echo '<td class="edit red" data-ids="" data-idp="">a</td>';
-                                // }
                             }
                             ?>
                         </table>

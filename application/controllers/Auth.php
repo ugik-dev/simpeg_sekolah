@@ -35,15 +35,14 @@ class Auth extends CI_Controller
 
         $this->load->model('UserModel');
         $user = $this->UserModel->getPegawai(['username' => $username], true);
-        // var_dump($user);
-        // die();
+
         if ($user) {
             if ($user['status_user'] == 'Y') {
                 if (md5($password) == $user['password']) {
                     $this->session->set_userdata($user);
                     $this->session->set_flashdata('pesan', 'Login');
 
-                    // $sad =  $this->session->userdata()['tgl_kgb'];
+
                     $now = new DateTime();
                     $since_start = $now->diff(new DateTime($user['tgl_kgb']));
                     if ($since_start->y >= 2) {
@@ -52,7 +51,6 @@ class Auth extends CI_Controller
                     }
 
                     redirect(base_url($user['controller']));
-                    // redirect(base_url('dashboard'));
                 } else {
                     $this->session->set_flashdata('error', 'Password Salah');
                     redirect('auth');
