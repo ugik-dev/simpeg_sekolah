@@ -292,6 +292,7 @@
 
         });
         var dataCuti = JSON.parse(`<?= json_encode($cuti) ?>`);
+        //digunakan untuk menampilkan form cuti pada admin
         <?php if ($this->session->userdata('controller') == 'admin') { ?>
             var PreviewModal = {
                 'self': $('#modal_cuti'),
@@ -317,6 +318,7 @@
             })
 
         <?php } ?>
+        //digunakan untuk menampilkan form cuti pada kepsek
         <?php if ($this->session->userdata('controller') == 'kepsek') { ?>
             var PreviewModal = {
                 'self': $('#modal_cuti'),

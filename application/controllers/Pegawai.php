@@ -353,18 +353,6 @@ class Pegawai extends CI_Controller
             $pdf->Cell(37, 7, '', 1, 1, 'L');
             $this_year = date('Y');
 
-            // if ($this_year == '2022') {
-            //     $sisa_n = $data['cuti_n'] -
-            //         $data['ct_n'];
-            //     $sisa_n1 = $data['cuti_n1'] -
-            //         $data['ct_n2'];
-            // } else
-            //                     if ($this_year == '2023') {
-            //     $sisa_n = 12 -
-            //         $data['ct_n'];
-            //     $sisa_n1 = $data['cuti_n'] -
-            //         $kt['ct_n2'] - $data['ct2_n'];
-            // }
             $pdf->Cell(7, 7, '', 1, 0, 'C');
             $pdf->Cell(20, 7, explode('-', $data['sampai'])[0], 1, 0, 'C');
             $pdf->Cell(15, 7, $data['sisa_n'], 1, 0, 'C');
@@ -442,8 +430,6 @@ class Pegawai extends CI_Controller
                 $pdf->Cell(70, 2, 'NIP. ' . $data['nip_kepsek'], 0, 1, 'C');
             } else {
                 $pdf->Cell(70, 6, $ref['ak_jabatan'], 0, 1, 'C');
-                // $pdf->Cell(120, 2);
-                // $pdf->Cell(70, 2, '', 0, 1, 'C');
                 $pdf->Cell(120, 25, '', 0, 1);
                 $pdf->Cell(120, 4);
                 $pdf->Cell(70, 4, $ref['ak_nama'], 0, 1, 'C');
@@ -480,10 +466,7 @@ class Pegawai extends CI_Controller
                 if ($data['status_cuti'] == 'acc_kepsek')
                     $pdf->Image($centang, $c1x + 3, $c1y + 3, 5);
 
-            // $pdf->SetXY($c1x + 6, $c1y + 20);
-            // $pdf->MultiCell(114, 6, '________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________', 0, 'L', 0);
-
-            //    
+              
             $pdf->SetXY($c1x + 190, $c1y + 43);
 
             $pdf->Cell(15, 5, '', 0, 1, 'L');
@@ -498,7 +481,7 @@ class Pegawai extends CI_Controller
             $pdf->Cell(70, 44, "", 1, 1);
             $pdf->SetXY($c1x, $c1y);
             $pdf->Cell(120, 6);
-            // $pdf->Cell(70, 6, 'Kepala CabangDinas Pendidikan', 0, 1, 'C');
+           
             $pdf->Cell(70, 6, $ref['pejabat_jabatan'], 0, 1, 'C');
             $pdf->Cell(120, 2);
             $pdf->Cell(70, 2, 'Wilayah ' . $ref['wilayah'], 0, 1, 'C');

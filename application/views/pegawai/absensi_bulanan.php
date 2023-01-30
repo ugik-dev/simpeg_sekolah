@@ -1,12 +1,5 @@
 <?php
-// $thn = 2022;
-// $bln = 10;
-// $date = '2009-10-22';
-// $sepparator = '-';
-// $parts = explode($sepparator, $date);
-
-// new
-
+//digunakan untuk mengecek hari sabtu dan minggu jika bukan sabtu dan minggu maka masuk kedalam kondisi if
 $thn = $tahun;
 $bln = (int) $bulan;
 $dayForDate = date("l", mktime(0, 0, 0, 1, $bln, $thn));
@@ -27,8 +20,6 @@ for ($i = 1; $i < 31; $i++) {
     .absensi,
     td {
         border: 1px solid;
-        /* min-width: 30px; */
-        /* background-color: yellow; */
     }
 
     .green {

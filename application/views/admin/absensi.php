@@ -90,6 +90,7 @@ for ($i = 1; $i < 31; $i++) {
                             </thead>
 
                             <?php
+                            //untuk menyusun hitungan setiap user, h: hadir, htf:hadir tidak full, s :sakit
                             foreach ($absensi as $key => $usr) {
                                 echo "<tr> <td class='nama text-left'> {$usr['nama']} </td>";
                                 $absensi[$key]['h'] = 0;

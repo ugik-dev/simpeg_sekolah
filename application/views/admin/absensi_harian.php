@@ -47,10 +47,6 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
         <div class="row mt-5">
             <div class="col-lg-12 mt-2">
                 <div class="card">
-
-
-
-                    <!-- <a type="button" onclick="printDiv('printableArea')" value="print a div!">Print<a> -->
                     <div class="card-body" id="printableArea">
                         <div class="col-lg-5">
                             <div class="form-group row">
@@ -60,9 +56,6 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row">
-                            
-                        </div> -->
                         <table class="absensi" width="50%" style="margin-top: 10px">
                             <thead>
                                 <tr>
@@ -84,7 +77,6 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                                     if ($usr['child'][$thn][$bln][$hari]['p']['st_absen'] == 'h')
                                         echo '<td class=" green" >' . explode(' ', $usr['child'][$thn][$bln][$hari]['p']['rec_time'])[1] . '</td>';
                                     else {
-                                        // if (!empty($usr['child'][$thn][$bln][$hari]['s']))
                                         $tmp_s = $usr['child'][$thn][$bln][$hari]['p']['st_absen'];
                                         echo '<td class=" yellow" >' .  $usr['child'][$thn][$bln][$hari]['p']['st_absen'] . '</td>';
                                     }
@@ -226,7 +218,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
             'st_absen_s': $('#absen_modal').find('#st_absen_s'),
             'id_s': $('#absen_modal').find('#id_s'),
         }
-
+        //jika edit di klik maka form menyesuaikan dengan pengguna yang login ke sistem
         $('.edit').on('click', function() {
             <?php if ($this->session->userdata()['level'] == 1) { ?>
                 var currentData = dataAbsen[$(this).data('id')];
@@ -285,12 +277,10 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                 $.ajax({
                     url: url,
                     'type': 'POST',
-                    // data: AbsenModal.form.serialize(),
                     data: new FormData(AbsenModal.form[0]),
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        // buttonIdle(button);
                         var json = JSON.parse(data);
                         if (json['error']) {
                             Swal.fire("Simpan Gagal", json['message'], "error");

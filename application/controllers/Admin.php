@@ -79,10 +79,6 @@ class Admin extends CI_Controller
     public function absensi_harian()
     {
         $filter = $this->input->get();
-
-        // $filter['tanggal'] = '2022-10-08';
-        // echo date('Y-m-d');
-        // die();
         if (empty($filter['tanggal'])) $filter['tanggal'] = date('Y-m-d');
 
         $tmp = date_create($filter['tanggal']);
@@ -145,13 +141,11 @@ class Admin extends CI_Controller
                 $this->load->library('upload', $config);
                 if (!$this->upload->do_upload('file_p')) {
                     throw new UserException($this->upload->display_errors(), UNAUTHORIZED_CODE);
-                    // $this->load->view('upload_form', $error);
                 } else {
                     $data['doc_absen_p'] =  $this->upload->data()['file_p'];
                 }
             }
             // input data absen pagi dari admin
-            // if (!empty($data['st_absen_p'])) {
             $data_p = [
                 'id_pegawai' => $data['id_pegawai'],
                 'id_absen' => $data['id_p'],
@@ -160,9 +154,6 @@ class Admin extends CI_Controller
                 'rec_time' => $data['tanggal'] . ' ' . $data['rec_time_p'],
             ];
             $this->AdminModel->rec_absen($data_p);
-            // echo json_encode($data_p);
-            // die();
-            // }
             // input data absen sore dari admin
             if (!empty($data['st_absen_s'])) {
                 $data_s = [
@@ -211,14 +202,10 @@ class Admin extends CI_Controller
             $data = $this->input->post();
             $dc = $this->PegawaiModel->getCuti(['id_cuti' => $data['id_cuti']])[$data['id_cuti']];
             $this->PegawaiModel->edit_cuti($data);
-            // echo $data['status_cuti'];
             $notif['id_user'] =  $dc['id_pegawai'];
             $notif['link'] = 'pegawai/cuti/?id' . $data['id_cuti'];
             // pengiriman notifikasi ke user
             if ($data['status_cuti'] == 'acc_adm') {
-                // echo $dc['level'] == 3;
-                // echo json_encode($dc);
-                // die();
                 if ($dc['level'] == '3') {
 
                     $notif['icon'] = 'fas fa-check';
@@ -306,7 +293,6 @@ class Admin extends CI_Controller
         $data['form_url'] = base_url('admin/form_pegawai/' . $id);
         $pegawai = $this->UserModel->getPegawai(['id' => $id]);
         $data['ref_ptk'] = $this->ParameterModel->ref_ptk();
-        // $data['ref_jabatan'] = $this->ParameterModel->ref_jabatan();
 
         if (!empty($this->input->post())) {
             $data_post = $this->input->post();
@@ -350,8 +336,6 @@ class Admin extends CI_Controller
             redirect('admin/kepegawaian');
             return;
         }
-
-        // $data[]
         $data['return'] = $this->UserModel->getPegawai(['id' => $id])[$id];
         $data['title'] = 'Edit Pegawai';
 
@@ -399,8 +383,6 @@ class Admin extends CI_Controller
 
             redirect('admin/user');
         } catch (Exception $e) {
-            // ExceptionHandler::handle($e);
-            // echo json_encode($e->getMessage());
             $this->session->set_flashdata('error', $e->getMessage());
             redirect('admin/user');
         }
@@ -409,7 +391,6 @@ class Admin extends CI_Controller
     public function print_absensi_bulanan()
     {
         $filter = $this->input->get();
-        // $filter = $this->input->get();
         // inisialisasi jika tidak ada filter bulan
         if (empty($filter['bulan'])) $filter['bulan'] = date('Y-m');
         $tmp = date_create($filter['bulan']);
@@ -447,7 +428,7 @@ class Admin extends CI_Controller
         $pdf->Line($pdf->GetX(), $pdf->GetY() + 4, $pdf->GetX() + 209, $pdf->GetY() + 4);
         $pdf->SetFont('Arial', '', 9.5);
 
-        // $pdf->Cell(190, 5, 'Tanggal : ' . tanggal_indonesia($data['tanggal_pengajuan']), 0, 1, 'R');
+
         $pdf->SetFont('Arial', 'B', 11);
         $pdf->SetFillColor(230, 230, 230);
         $pdf->Cell(190, 7, ' ', 0, 1, 'L', 0);
@@ -551,22 +532,7 @@ class Admin extends CI_Controller
         foreach ($absensi as $key => $usr) {
             $ttl = $usr['dl'] + $usr['i'] + $usr['s'] + $usr['c'];
             $total_th = $total_th + $ttl;
-            // $pdf->Cell(3, 5, $i, 0, 1, 'C', 0);
             $pdf->row_absensi($i, $ttl, $jlh_hari_kerja, $usr);
-            // endforeach;
-            // $pdf->Cell(7, 10, $i, 1, 0, 'C', 0);
-            // $pdf->Cell(56, 10, $usr['nama'], 1, 0, 'L', 0);
-            // $pdf->Cell(26, 10, $usr['nama_ptk'], 1, 0, 'C', 0);
-            // $pdf->Cell(14, 10, $jlh_hari_kerja, 1, 0, 'C', 0);
-            // $pdf->Cell(11, 10, $usr['h'], 1, 0, 'C', 0);
-            // $pdf->Cell(21, 10, $usr['htf'], 1, 0, 'C', 0);
-            // // $pdf->MultiCell(21, 5, $usr['htf'], 1, 'C');
-            // $pdf->Cell(11, 10, $usr['i'], 1, 0, 'C', 0);
-            // $pdf->Cell(11, 10, $usr['s'], 1, 0, 'C', 0);
-            // $pdf->Cell(11, 10, $usr['c'], 1, 0, 'C', 0);
-            // $pdf->Cell(13, 10, $usr['dl'], 1, 0, 'C', 0);
-            // $pdf->Cell(26, 10, $ttl, 1, 1, 'C', 0);
-
 
             $i++;
         }

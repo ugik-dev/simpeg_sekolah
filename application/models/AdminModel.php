@@ -69,6 +69,7 @@
 
         public function last_mesin()
         {
+            //digunakan untuk mengecek kapan terakhir singkron agar tidak doubel input
             $this->db->from('absensi');
             $this->db->limit(1, 'asc');
             $this->db->where('mesin', 1);
@@ -82,6 +83,7 @@
 
         public function push_mesin($data)
         {
+            //digunakan untuk mengirim data ke server
             $q2 = false;
             $query = "INSERT INTO `absensi`(`id_pegawai`, `rec_time`, `jenis`, `st_absen`, `mesin`) VALUES ";
             $i = 0;

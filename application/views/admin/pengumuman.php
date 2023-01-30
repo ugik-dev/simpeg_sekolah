@@ -42,6 +42,7 @@
                                 <td class="text-capitalize"><?= $kt['tanggal']; ?></td>
                                 <td class="text-capitalize"><?= $kt['judul']; ?></td>
                                 <td class=""><?= substr(strip_tags($kt['isi']), 0, 100); ?> ..
+
                                 </td>
                                 <td class="text-center">
                                     <!-- <div class="row"> -->
@@ -90,16 +91,18 @@
 
                             </div>
                         </div>
+
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+
     </div>
+</div>
 </div>
 
 
@@ -108,6 +111,7 @@
         var table = $('#FDTable').DataTable({
             // dom: "Bfrtip",
             dom: 'Bfrtip',
+            //libary tabel responsive bawaan
             buttons: [
                 'copy', 'excel', {
                     extend: 'pdfHtml5',
@@ -139,9 +143,6 @@
                         };
                         doc.content[0].layout = objLayout;
                     },
-                    // exportOptions: {
-                    //     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-                    // },
 
                 },
 
@@ -204,8 +205,7 @@
             PreviewModal.id_pengumuman.val(cur['id_pengumuman']);
             PreviewModal.judul.val(cur['judul']);
 
-            // PreviewModal.isi.val(cur['isi']);
-            // PreviewModal.isi.val(cur['isi']);
+
             $('.ck-reset').remove();
 
             $('#isi').html(cur['isi'])

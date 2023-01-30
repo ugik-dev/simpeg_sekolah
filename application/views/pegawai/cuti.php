@@ -67,7 +67,6 @@
 <script>
     $(document).ready(function() {
         var table = $('#FDTable').DataTable({
-            // dom: "Bfrtip",
             dom: '<?= $this->session->userdata('level') != '1' ? 'frtip' : 'Bfrtip' ?>',
             buttons: [
                 'copy', 'excel'
