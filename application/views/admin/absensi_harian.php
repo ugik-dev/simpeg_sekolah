@@ -115,64 +115,68 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                     <input type="hidden" id="id_pegawai" name="id_pegawai">
                     <input class="form-control" id="nama_pegawai" name="" readonly>
                     <input type="hidden" id="tanggal" name="tanggal" value="<?= $tanggal ?>">
-                    <hr>
-                    <h2>Pagi</h2>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="nama">Status</label>
-                                <select class="form-control " name="st_absen_p" id="st_absen_p" required>
-                                    <option value="">-</option>
-                                    <option value="h">Hadir</option>
-                                    <option value="s">Sakit</option>
-                                    <option value="i">Izin</option>
-                                    <option value="dl">Dinas Lunas</option>
-                                    <option value="a">Tidak Hadir</option>
-                                </select>
+                    <div class="col-lg-12">
+                        <hr>
+                        <h2>Pagi</h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="nama">Status</label>
+                                    <select class="form-control " name="st_absen_p" id="st_absen_p" required>
+                                        <option value="">-</option>
+                                        <option value="h">Hadir</option>
+                                        <option value="s">Sakit</option>
+                                        <option value="i">Izin</option>
+                                        <option value="dl">Dinas Lunas</option>
+                                        <option value="a">Tidak Hadir</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="tanggal">Waktu Absensi</label>
-                                <input type="hidden" placeholder="" class="form-control" id="id_p" name="id_p">
-                                <input type="time" placeholder="" class="form-control" id="rec_time_p" name="rec_time_p">
+                            <div class="col-lg-6" id="layout_time_p">
+                                <div class="form-group">
+                                    <label for="tanggal">Waktu Absensi</label>
+                                    <input type="hidden" placeholder="" class="form-control" id="id_p" name="id_p">
+                                    <input type="time" placeholder="" class="form-control" id="rec_time_p" name="rec_time_p">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4" hidden>
-                            <div class="form-group">
-                                <label for="nama">Lampiran </label>
-                                <input type="file" placeholder="" class="form-control" id="file_p" name="file_p" accept="application/pdf">
+                            <div class="col-lg-4" hidden>
+                                <div class="form-group">
+                                    <label for="nama">Lampiran </label>
+                                    <input type="file" placeholder="" class="form-control" id="file_p" name="file_p" accept="application/pdf">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <hr>
-                    <h2>Sore</h2>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="nama">Status</label>
-                                <select class="form-control " name="st_absen_s" id="st_absen_s">
-                                    <option value="">-</option>
-                                    <option value="h">Hadir</option>
-                                    <option value="s">Sakit</option>
-                                    <option value="i">Izin</option>
-                                    <option value="dl">Dinas Lunas</option>
-                                    <option value="a">Tidak Hadir</option>
-                                </select>
+                    <div class="col-lg-12" id="layout_sore">
+                        <hr>
+                        <h2>Sore</h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="nama">Status</label>
+                                    <select class="form-control " name="st_absen_s" id="st_absen_s">
+                                        <option value="">-</option>
+                                        <option value="h">Hadir</option>
+                                        <option value="s">Sakit</option>
+                                        <option value="i">Izin</option>
+                                        <option value="dl">Dinas Lunas</option>
+                                        <option value="a">Tidak Hadir</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="tanggal">Waktu Absensi</label>
-                                <input type="hidden" placeholder="" class="form-control" id="id_s" name="id_s">
-                                <input type="time" placeholder="" class="form-control" id="rec_time_s" name="rec_time_s">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="tanggal">Waktu Absensi</label>
+                                    <input type="hidden" placeholder="" class="form-control" id="id_s" name="id_s">
+                                    <input type="time" placeholder="" class="form-control" id="rec_time_s" name="rec_time_s">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4" hidden>
-                            <div class="form-group">
-                                <label for="nama">Lampiran </label>
-                                <input type="file" placeholder="" class="form-control" id="file_s" name="file_s" accept="application/pdf">
+                            <div class="col-lg-4" hidden>
+                                <div class="form-group">
+                                    <label for="nama">Lampiran </label>
+                                    <input type="file" placeholder="" class="form-control" id="file_s" name="file_s" accept="application/pdf">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -216,8 +220,23 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
             'id_p': $('#absen_modal').find('#id_p'),
             'rec_time_s': $('#absen_modal').find('#rec_time_s'),
             'st_absen_s': $('#absen_modal').find('#st_absen_s'),
+            'layout_sore': $('#absen_modal').find('#layout_sore'),
+            'layout_time_p': $('#absen_modal').find('#layout_time_p'),
+
             'id_s': $('#absen_modal').find('#id_s'),
         }
+
+        AbsenModal.st_absen_p.on('change', function() {
+            default_time = "<?= (date("H:i", time())) ?>"
+            if (AbsenModal.st_absen_p.val() != 'h') {
+                AbsenModal.layout_sore.hide();
+                AbsenModal.rec_time_p.val(default_time);
+                AbsenModal.layout_time_p.hide();
+            } else {
+                AbsenModal.layout_sore.show();
+                AbsenModal.layout_time_p.show();
+            }
+        })
         //jika edit di klik maka form menyesuaikan dengan pengguna yang login ke sistem
         $('.edit').on('click', function() {
             <?php if ($this->session->userdata()['level'] == 1) { ?>
@@ -230,7 +249,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                 AbsenModal.id_pegawai.val(currentData['id']);
                 AbsenModal.nama_pegawai.val(currentData['nama']);
 
-                if ('undefined' !== typeof currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']) {
+                if ('undefined' !== typeof currentData['child']?. ['<?= $thn ?>']?. ['<?= $bln ?>']?. ['<?= $hari ?>']?. ['p']) {
 
                     AbsenModal.rec_time_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11', 5));
                     AbsenModal.st_absen_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['st_absen']);
@@ -240,7 +259,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                     AbsenModal.st_absen_p.val('');
                     AbsenModal.id_p.val('');
                 }
-                if ('undefined' !== typeof currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']) {
+                if ('undefined' !== typeof currentData['child']?. ['<?= $thn ?>']?. ['<?= $bln ?>']?. ['<?= $hari ?>']?. ['s']) {
                     AbsenModal.rec_time_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['rec_time'].substr('11', 5));
                     AbsenModal.st_absen_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['st_absen']);
                     AbsenModal.id_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['id_absen']);
@@ -249,10 +268,12 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                     AbsenModal.st_absen_s.val('');
                     AbsenModal.id_s.val('');
                 }
+                AbsenModal.st_absen_p.trigger('change');
 
                 console.log(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11'));
             <?php } ?>
         })
+
 
         AbsenModal.form.submit(function(event) {
             event.preventDefault();

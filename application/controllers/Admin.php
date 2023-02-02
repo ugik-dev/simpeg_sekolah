@@ -83,6 +83,17 @@ class Admin extends CI_Controller
 
         $tmp = date_create($filter['tanggal']);
         $filter['tanggal'] =  date_format($tmp, "Y-m-d");
+        // if($filter['tanggal'])
+        // var_dump($filter['tanggal']);
+        if ($filter['tanggal'] > date('Y-m-d')) {
+            $data = [
+                'title' => 'Absensi',
+                'page' => 'errorpage',
+                'message' => 'Maaf, tanggal ini belum tersedia!!'
+            ];
+            $this->load->view('page', $data);
+            return;
+        }
         // die();
         $data = [
             'title' => 'Absensi',
