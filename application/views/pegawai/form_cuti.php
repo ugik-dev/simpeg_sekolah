@@ -58,7 +58,7 @@
                                             $sisa_n1 = $pegawai['cuti_n1'] - $pegawai['ct_n2'];
                                         } else
                                                             if ($this_year == '2023') {
-                                            $sisa_n = 12 - $pegawai['ct_n'];
+                                            $sisa_n = $ref_cuti['max_cuti'] - $pegawai['ct_n'];
                                             $sisa_n1 = $pegawai['cuti_n'] - $pegawai['ct_n2'] - $pegawai['ct2_n'];
                                         }
 
@@ -130,6 +130,8 @@
                                                 $end_date               =       new DateTime($get_end_date); // New date object
                                                 $days                   =       $end_date->diff($get_start_date);
                                                 $days                   =       $days->format('%y');
+                                            } else {
+                                                $days = 0;
                                             }
 
                                             if ($days < 5 || empty($pegawai['cuti_besar'])) {
@@ -160,9 +162,13 @@
                             </div>
                             <button type="submit" class="btn btn-primary float-right">Simpan</button>
                         </form>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<script></script>

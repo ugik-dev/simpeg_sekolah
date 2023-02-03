@@ -16,6 +16,15 @@
                                     </button>
                                 </div>
                             <?php endif; ?>
+                            <!-- <h6>Total cuti maksimum (hari)/tahun</h6>
+                            <hr> -->
+                            <div class=" form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="max_cuti">Total cuti maksimum (hari)/tahun</label>
+                                    <input type="text" class="form-control" name="max_cuti" value="<?= $return['max_cuti']   ?>" required>
+                                </div>
+                            </div>
+
                             <h6>Data Atasan Kepala Sekolah</h6>
                             <hr>
                             <div class=" form-row">

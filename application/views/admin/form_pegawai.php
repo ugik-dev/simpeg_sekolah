@@ -13,10 +13,11 @@
                             if ($this_year == '2022') {
                                 $sisa_n = $pegawaiDetail['cuti_n'] - $pegawaiDetail['ct_n'];
                                 $sisa_n1 = $pegawaiDetail['cuti_n1'] - $pegawaiDetail['ct_n2'];
-                            } else if ($this_year == '2023') {
-                                $sisa_n = 12 - $pegawaiDetail['ct_n'];
+                            } else if ($this_year >= '2023') {
+                                $sisa_n = $ref_cuti['max_cuti'] - $pegawaiDetail['ct_n'];
                                 $sisa_n1 = $pegawaiDetail['cuti_n'] - $pegawaiDetail['ct_n2'] - $pegawaiDetail['ct2_n'];
                             }
+
                             $days = 0;
                             if (!empty($pegawaiDetail['cuti_besar'])) {
 
@@ -164,7 +165,7 @@
                             </div>
                             <div class="form-row">
                                 <?php if ($this->session->userdata()['level'] == '1') { ?>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-4" hidden>
                                         <label for="cuti_n1">Sisa Cuti 2021</label>
                                         <input type="number" class="form-control" name="cuti_n1" value="<?= !empty($return['cuti_n1']) ? $return['cuti_n1']  : '';  ?>">
                                     </div>

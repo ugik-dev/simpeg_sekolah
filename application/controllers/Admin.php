@@ -310,6 +310,7 @@ class Admin extends CI_Controller
         $data['form_url'] = base_url('admin/form_pegawai/' . $id);
         $pegawai = $this->UserModel->getPegawai(['id' => $id]);
         $data['ref_ptk'] = $this->ParameterModel->ref_ptk();
+        $data['ref_cuti'] = $this->ParameterModel->ref_cuti();
 
         if (!empty($this->input->post())) {
             $data_post = $this->input->post();

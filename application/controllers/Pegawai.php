@@ -48,6 +48,7 @@ class Pegawai extends CI_Controller
         $pegawai = $this->UserModel->getPegawai(['id' => $id]);
         $pegawaiDetail = $this->UserModel->getPegawaiDetail(['id' => $this->session->userdata()['id_user']])[$this->session->userdata()['id_user']];
         $data['ref_ptk'] = $this->ParameterModel->ref_ptk();
+        $data['ref_cuti'] = $this->ParameterModel->ref_cuti();
         if (empty($pegawai[$id]['id_pegawai'])) {
             $add = true;
         } else {
@@ -74,6 +75,7 @@ class Pegawai extends CI_Controller
             'return' =>  $this->UserModel->getPegawai(['id' => $id])[$id],
             'pegawaiDetail' => $pegawaiDetail,
             'ref_ptk' =>  $this->ParameterModel->ref_ptk(),
+            'ref_cuti' =>  $this->ParameterModel->ref_cuti(),
             'form_url' => base_url('pegawai/data_diri/')
 
         ];
@@ -122,10 +124,18 @@ class Pegawai extends CI_Controller
     {
         $data['form_url'] = base_url('pegawai/add_cuti/');
         $data['pegawai'] = $this->UserModel->getPegawaiDetail(['id' => $this->session->userdata()['id_user']])[$this->session->userdata()['id_user']];
+        $data['ref_cuti'] = $this->ParameterModel->ref_cuti();
         if (!empty($this->input->post())) {
             $data_post = $this->input->post();
             $data_post['id_pegawai'] = $this->session->userdata()['id_user'];
             $data_post['id_kepsek'] =  $this->UserModel->get(['status_user' => 'Y', 'level' => 3], true)['id'];
+
+            if ($data_post['n1'] > $data_post['sisa_n1'] || $data_post['n'] > $data_post['sisa_n']) {
+                $this->session->set_flashdata('error', 'Cuti tidak boleh melebihi sisa cuti');
+                // $this->add_cuti($data_post);
+                redirect('pegawai/add_cuti');
+                return;
+            }
 
             if ($this->session->userdata('level') == 1) {
                 $data_post['status_cuti'] = 'acc_adm';
@@ -155,6 +165,7 @@ class Pegawai extends CI_Controller
     public function edit_cuti($id)
     {
         $data['form_url'] = base_url('pegawai/edit_cuti/' . $id);
+        $data['ref_cuti'] = $this->ParameterModel->ref_cuti();
         // $data['pegawai'] = $this->UserModel->getPegawai(['id' => $this->session->userdata()['id_user']])[$this->session->userdata()['id_user']];
         $data['pegawai'] = $this->UserModel->getPegawaiDetail(['id' => $this->session->userdata()['id_user']])[$this->session->userdata()['id_user']];
         $data['return'] = $this->PegawaiModel->getCuti(['id_pegawai' => $this->session->userdata()['id_user'], 'id_cuti' => $id])[$id];
@@ -466,7 +477,7 @@ class Pegawai extends CI_Controller
                 if ($data['status_cuti'] == 'acc_kepsek')
                     $pdf->Image($centang, $c1x + 3, $c1y + 3, 5);
 
-              
+
             $pdf->SetXY($c1x + 190, $c1y + 43);
 
             $pdf->Cell(15, 5, '', 0, 1, 'L');
@@ -481,7 +492,7 @@ class Pegawai extends CI_Controller
             $pdf->Cell(70, 44, "", 1, 1);
             $pdf->SetXY($c1x, $c1y);
             $pdf->Cell(120, 6);
-           
+
             $pdf->Cell(70, 6, $ref['pejabat_jabatan'], 0, 1, 'C');
             $pdf->Cell(120, 2);
             $pdf->Cell(70, 2, 'Wilayah ' . $ref['wilayah'], 0, 1, 'C');

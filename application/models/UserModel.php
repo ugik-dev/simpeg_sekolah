@@ -50,7 +50,7 @@ class UserModel extends CI_Model
         $this->db->join('(SELECT sum(n) ct_n , sum(n1) ct_n1 ,id_pegawai, YEAR(sampai) FROM `cuti` where jenis = 1 AND  status_cuti = "acc_kepsek" AND YEAR(sampai) = ' . $year . ' GROUP by id_pegawai, year(sampai)  ) as cc', 'cc.id_pegawai = u.id', 'left');
         $this->db->join('(SELECT sum(n) ct2_n ,id_pegawai, YEAR(sampai) FROM `cuti` where jenis = 1 AND status_cuti = "acc_kepsek" AND  YEAR(sampai) = ' . ($year - 1) . ' GROUP by id_pegawai, year(sampai)  ) as cc2', 'cc2.id_pegawai = u.id', 'left');
 
-       
+
         if (!empty($filter['id']))  $this->db->where('u.id', $filter['id']);
         if (!empty($filter['tmt_start']))  $this->db->where('p.tmt_kerja > ', $filter['tmt_start']);
         if (!empty($filter['tmt_end']))  $this->db->where('p.tmt_kerja < ', $filter['tmt_end']);
