@@ -152,7 +152,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                         <hr>
                         <h2>Sore</h2>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="nama">Status</label>
                                     <select class="form-control " name="st_absen_s" id="st_absen_s">
