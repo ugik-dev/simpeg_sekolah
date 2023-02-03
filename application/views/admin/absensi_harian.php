@@ -119,7 +119,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                         <hr>
                         <h2>Pagi</h2>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="nama">Status</label>
                                     <select class="form-control " name="st_absen_p" id="st_absen_p" required>
@@ -132,19 +132,19 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6" id="layout_time_p">
+                            <input type="hidden" placeholder="" class="form-control" id="id_p" name="id_p">
+                            <!-- <div class="col-lg-6" id="layout_time_p">
                                 <div class="form-group">
                                     <label for="tanggal">Waktu Absensi</label>
-                                    <input type="hidden" placeholder="" class="form-control" id="id_p" name="id_p">
                                     <input type="time" placeholder="" class="form-control" id="rec_time_p" name="rec_time_p">
                                 </div>
-                            </div>
-                            <div class="col-lg-4" hidden>
+                            </div> -->
+                            <!-- <div class="col-lg-4" hidden>
                                 <div class="form-group">
                                     <label for="nama">Lampiran </label>
                                     <input type="file" placeholder="" class="form-control" id="file_p" name="file_p" accept="application/pdf">
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -165,10 +165,10 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <input type="hidden" placeholder="" class="form-control" id="id_s" name="id_s">
+                            <!-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="tanggal">Waktu Absensi</label>
-                                    <input type="hidden" placeholder="" class="form-control" id="id_s" name="id_s">
                                     <input type="time" placeholder="" class="form-control" id="rec_time_s" name="rec_time_s">
                                 </div>
                             </div>
@@ -177,7 +177,7 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
                                     <label for="nama">Lampiran </label>
                                     <input type="file" placeholder="" class="form-control" id="file_s" name="file_s" accept="application/pdf">
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -215,13 +215,13 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
             'nama_pegawai': $('#absen_modal').find('#nama_pegawai'),
             'saveEditBtn': $('#absen_modal').find('#save_edit_btn'),
             'id_pegawai': $('#absen_modal').find('#id_pegawai'),
-            'rec_time_p': $('#absen_modal').find('#rec_time_p'),
+            // 'rec_time_p': $('#absen_modal').find('#rec_time_p'),
             'st_absen_p': $('#absen_modal').find('#st_absen_p'),
             'id_p': $('#absen_modal').find('#id_p'),
-            'rec_time_s': $('#absen_modal').find('#rec_time_s'),
+            // 'rec_time_s': $('#absen_modal').find('#rec_time_s'),
             'st_absen_s': $('#absen_modal').find('#st_absen_s'),
             'layout_sore': $('#absen_modal').find('#layout_sore'),
-            'layout_time_p': $('#absen_modal').find('#layout_time_p'),
+            // 'layout_time_p': $('#absen_modal').find('#layout_time_p'),
 
             'id_s': $('#absen_modal').find('#id_s'),
         }
@@ -230,50 +230,53 @@ $dayForDate = date("l", mktime(0, 0, 0, $hari, $bln, $thn));
             default_time = "<?= (date("H:i", time())) ?>"
             if (AbsenModal.st_absen_p.val() != 'h') {
                 AbsenModal.layout_sore.hide();
-                AbsenModal.rec_time_p.val(default_time);
-                AbsenModal.layout_time_p.hide();
+                // AbsenModal.rec_time_p.val(default_time);
+                // AbsenModal.layout_time_p.hide();
             } else {
                 AbsenModal.layout_sore.show();
-                AbsenModal.layout_time_p.show();
+                // AbsenModal.layout_time_p.show();
             }
         })
         //jika edit di klik maka form menyesuaikan dengan pengguna yang login ke sistem
-        $('.edit').on('click', function() {
-            <?php if ($this->session->userdata()['level'] == 1) { ?>
-                var currentData = dataAbsen[$(this).data('id')];
-                AbsenModal.self.modal('show')
-                AbsenModal.form.trigger('reset');
-                console.log(currentData);
-                console.log('--1');
-                console.log('--2');
-                AbsenModal.id_pegawai.val(currentData['id']);
-                AbsenModal.nama_pegawai.val(currentData['nama']);
 
-                if ('undefined' !== typeof currentData['child']?. ['<?= $thn ?>']?. ['<?= $bln ?>']?. ['<?= $hari ?>']?. ['p']) {
+        <?php if ($edit) {
+        ?>
+            $('.edit').on('click', function() {
+                <?php if ($this->session->userdata()['level'] == 1) { ?>
+                    var currentData = dataAbsen[$(this).data('id')];
+                    AbsenModal.self.modal('show')
+                    AbsenModal.form.trigger('reset');
+                    console.log(currentData);
+                    console.log('--1');
+                    console.log('--2');
+                    AbsenModal.id_pegawai.val(currentData['id']);
+                    AbsenModal.nama_pegawai.val(currentData['nama']);
 
-                    AbsenModal.rec_time_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11', 5));
-                    AbsenModal.st_absen_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['st_absen']);
-                    AbsenModal.id_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['id_absen']);
-                } else {
-                    AbsenModal.rec_time_p.val('');
-                    AbsenModal.st_absen_p.val('');
-                    AbsenModal.id_p.val('');
-                }
-                if ('undefined' !== typeof currentData['child']?. ['<?= $thn ?>']?. ['<?= $bln ?>']?. ['<?= $hari ?>']?. ['s']) {
-                    AbsenModal.rec_time_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['rec_time'].substr('11', 5));
-                    AbsenModal.st_absen_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['st_absen']);
-                    AbsenModal.id_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['id_absen']);
-                } else {
-                    AbsenModal.rec_time_s.val('');
-                    AbsenModal.st_absen_s.val('');
-                    AbsenModal.id_s.val('');
-                }
-                AbsenModal.st_absen_p.trigger('change');
+                    if ('undefined' !== typeof currentData['child']?. ['<?= $thn ?>']?. ['<?= $bln ?>']?. ['<?= $hari ?>']?. ['p']) {
 
-                console.log(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11'));
-            <?php } ?>
-        })
+                        // AbsenModal.rec_time_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11', 5));
+                        AbsenModal.st_absen_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['st_absen']);
+                        AbsenModal.id_p.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['id_absen']);
+                    } else {
+                        // AbsenModal.rec_time_p.val('');
+                        AbsenModal.st_absen_p.val('');
+                        AbsenModal.id_p.val('');
+                    }
+                    if ('undefined' !== typeof currentData['child']?. ['<?= $thn ?>']?. ['<?= $bln ?>']?. ['<?= $hari ?>']?. ['s']) {
+                        // AbsenModal.rec_time_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['rec_time'].substr('11', 5));
+                        AbsenModal.st_absen_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['st_absen']);
+                        AbsenModal.id_s.val(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['s']['id_absen']);
+                    } else {
+                        // AbsenModal.rec_time_s.val('');
+                        AbsenModal.st_absen_s.val('');
+                        AbsenModal.id_s.val('');
+                    }
+                    AbsenModal.st_absen_p.trigger('change');
 
+                    // console.log(currentData['child']['<?= $thn ?>']['<?= $bln ?>']['<?= $hari ?>']['p']['rec_time'].substr('11'));
+                <?php } ?>
+            })
+        <?php } ?>
 
         AbsenModal.form.submit(function(event) {
             event.preventDefault();

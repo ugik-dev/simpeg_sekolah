@@ -82,6 +82,11 @@ class Admin extends CI_Controller
         if (empty($filter['tanggal'])) $filter['tanggal'] = date('Y-m-d');
 
         $tmp = date_create($filter['tanggal']);
+        if ($filter['tanggal'] == date('Y-m-d')) {
+            $edit = true;
+        } else {
+            $edit = false;
+        }
         $filter['tanggal'] =  date_format($tmp, "Y-m-d");
         // if($filter['tanggal'])
         // var_dump($filter['tanggal']);
@@ -99,7 +104,8 @@ class Admin extends CI_Controller
             'title' => 'Absensi',
             'page' => 'admin/absensi_harian',
             'absensi' => $this->AdminModel->getAbsensi($filter, false),
-            'tanggal' => $filter['tanggal']
+            'tanggal' => $filter['tanggal'],
+            'edit' => $edit
         ];
         // echo json_encode($data);
         // die();
@@ -162,7 +168,7 @@ class Admin extends CI_Controller
                 'id_absen' => $data['id_p'],
                 'st_absen' => $data['st_absen_p'],
                 'jenis' => 'p',
-                'rec_time' => $data['tanggal'] . ' ' . $data['rec_time_p'],
+                // 'rec_time' => $data['tanggal'] . ' ' . $data['rec_time_p'],
             ];
             $this->AdminModel->rec_absen($data_p);
             // input data absen sore dari admin
@@ -172,7 +178,7 @@ class Admin extends CI_Controller
                     'id_absen' => $data['id_s'],
                     'st_absen' => $data['st_absen_s'],
                     'jenis' => 's',
-                    'rec_time' => $data['tanggal'] . ' ' . $data['rec_time_s'],
+                    // 'rec_time' => $data['tanggal'] . ' ' . $data['rec_time_s'],
                 ];
                 $this->AdminModel->rec_absen($data_s);
             }
