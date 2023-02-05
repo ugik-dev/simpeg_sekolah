@@ -50,7 +50,14 @@
         }
         public function update_pengaturan_cuti($data)
         {
+            // $data = $this->input->post();
+            $data_cuti = $data['cuti_n'];
+            unset($data['cuti_n']);
             $this->db->update('ref_cuti', $data);
+
+            $this->db->set('cuti_n', $data_cuti);
+            $this->db->where('1=1');
+            $this->db->update('pegawai');
         }
 
         public function delete_pengumuman($data)

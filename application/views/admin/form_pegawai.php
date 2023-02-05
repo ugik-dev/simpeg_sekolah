@@ -163,7 +163,7 @@
                                     <input type="date" class="form-control" name="cuti_besar" value="<?= !empty($return['cuti_besar']) ? $return['cuti_besar']  : '';  ?>">
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row" hidden>
                                 <?php if ($this->session->userdata()['level'] == '1') { ?>
                                     <div class="form-group col-md-4" hidden>
                                         <label for="cuti_n1">Sisa Cuti 2021</label>

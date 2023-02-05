@@ -144,12 +144,6 @@
                             $admin = $this->session->userdata('level') == 1 ? true : false;
                             foreach ($user as $kt) {
 
-                                if ($this_year == '2022') {
-                                    $sisa_n = $kt['cuti_n'] -
-                                        $kt['ct_n'];
-                                    $sisa_n1 = $kt['cuti_n1'] -
-                                        $kt['ct_n2'];
-                                } else
                                 if ($this_year == '2023') {
                                     $sisa_n = 12 -
                                         $kt['ct_n'];

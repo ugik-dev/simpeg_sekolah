@@ -120,11 +120,15 @@ class Pegawai extends CI_Controller
         $this->load->view('page', $data);
     }
 
+
+
     public function add_cuti()
     {
         $data['form_url'] = base_url('pegawai/add_cuti/');
         $data['pegawai'] = $this->UserModel->getPegawaiDetail(['id' => $this->session->userdata()['id_user']])[$this->session->userdata()['id_user']];
         $data['ref_cuti'] = $this->ParameterModel->ref_cuti();
+        // echo json_encode($data['pegawai']);
+        // die();
         if (!empty($this->input->post())) {
             $data_post = $this->input->post();
             $data_post['id_pegawai'] = $this->session->userdata()['id_user'];

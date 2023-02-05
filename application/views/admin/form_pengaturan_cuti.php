@@ -19,9 +19,9 @@
                             <!-- <h6>Total cuti maksimum (hari)/tahun</h6>
                             <hr> -->
                             <div class=" form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="max_cuti">Total cuti maksimum (hari)/tahun</label>
-                                    <input type="text" class="form-control" name="max_cuti" value="<?= $return['max_cuti']   ?>" required>
+                                <div class="form-group col-md-4">
+                                    <label for="cuti_n">Sisa Cuti 2022</label>
+                                    <input type="number" class="form-control" name="cuti_n" value="<?= !empty($return['cuti_n']) ? $return['cuti_n']  : '';  ?>">
                                 </div>
                             </div>
 

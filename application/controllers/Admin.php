@@ -367,9 +367,8 @@ class Admin extends CI_Controller
     {
 
         if (!empty($this->input->post())) {
-
-
-            $this->AdminModel->update_pengaturan_cuti($this->input->post());
+        $data = $this->input->post();
+            $this->AdminModel->update_pengaturan_cuti($data);
             $this->session->set_flashdata('pesan', 'Berhasil simpan data pengaturan cuti');
             redirect('admin/pengaturan_cuti');
             return;
@@ -377,6 +376,9 @@ class Admin extends CI_Controller
 
         $data['form_url'] = base_url('admin/pengaturan_cuti/');
         $data['return'] = $this->ParameterModel->ref_cuti();
+        $data['return']['cuti_n'] = $this->UserModel->getPegawai(['id' => $this->session->userdata()['id']])[$this->session->userdata()['id']]['cuti_n'];
+        // echo json_encode($data['ss']);
+        // die();
         $data['title'] = 'Pengaturan Cuti';
         $data['page'] = 'admin/form_pengaturan_cuti';
         $this->load->view('page', $data);

@@ -31,7 +31,6 @@ class UserModel extends CI_Model
         if (!empty($filter['st_sertifikasi']))  $this->db->where('p.st_sertifikasi', $filter['st_sertifikasi']);
         if (!empty($filter['jenis_kelamin']))  $this->db->where('p.jenis_kelamin', $filter['jenis_kelamin']);
         if (!empty($filter['status_user']))  $this->db->where('u.status_user', $filter['status_user']);
-
         $res =  $this->db->get();
         if ($arr) return $res->row_array();
         return  DataStructure::keyValue($res->result_array(), 'id_user');

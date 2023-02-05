@@ -52,15 +52,8 @@
                                     <div class="row">
                                         <?php
                                         $this_year = date('Y');
-
-                                        if ($this_year == '2022') {
-                                            $sisa_n = $pegawai['cuti_n'] - $pegawai['ct_n'];
-                                            $sisa_n1 = $pegawai['cuti_n1'] - $pegawai['ct_n2'];
-                                        } else
-                                                            if ($this_year == '2023') {
-                                            $sisa_n = $ref_cuti['max_cuti'] - $pegawai['ct_n'];
-                                            $sisa_n1 = $pegawai['cuti_n'] - $pegawai['ct_n2'] - $pegawai['ct2_n'];
-                                        }
+                                        $sisa_n = 12 - $pegawai['ct_n'];
+                                        $sisa_n1 = $pegawai['cuti_n'] - $pegawai['ct_n2'] - $pegawai['ct2_n'];
 
                                         ?>
                                         <div class="form-group col-md-6">
