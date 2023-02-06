@@ -116,8 +116,10 @@
                                         <td class="text-center">
                                             <div class="btn-group mr-2" role="group" aria-label="Aksi">
                                                 <a href="<?= base_url(); ?>preview_cuti/<?= $kt['id_cuti'] ?>" class="btn btn-sm btn-secondary text-dark"><i class="fas fa-eye"></i></a>
-                                                <?php if ($this->session->userdata('id') != $kt['id_pegawai']) { ?>
-                                                    <a type="button" data-id="<?= $kt['id_cuti'] ?>" class="action btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
+                                                <?php if ($this->session->userdata('controller') == 'kepsek') { ?>
+                                                    <?php if ($this->session->userdata('id') != $kt['id_pegawai']) { ?>
+                                                        <a type="button" data-id="<?= $kt['id_cuti'] ?>" class="action btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
+                                                    <?php } ?>
                                                 <?php } ?>
                                             </div>
                                         </td>

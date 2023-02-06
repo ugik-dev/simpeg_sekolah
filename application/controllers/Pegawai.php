@@ -141,21 +141,22 @@ class Pegawai extends CI_Controller
                 return;
             }
 
-            if ($this->session->userdata('level') == 1) {
-                $data_post['status_cuti'] = 'acc_adm';
-                $id_cuti =  $this->PegawaiModel->add_cuti($data_post);
+            $data_post['status_cuti'] = 'acc_adm';
+            $id_cuti =  $this->PegawaiModel->add_cuti($data_post);
+            // if ($this->session->userdata('level') == 1) {
                 $notif['id_user'] =  $data_post['id_kepsek'];
                 $notif['link'] = 'admin/permohonan_cuti/?id=' . $id_cuti;
                 $notif['icon'] = 'far fa-user';
-                $notif['text'] = $this->session->userdata()['nama'] . ' telah mengajuan cuti baru kepada anda.';
-            } else {
-                $id_cuti =  $this->PegawaiModel->add_cuti($data_post);
+                $notif['text'] = $this->session->userdata()['nama'] . ' telah mengajuan cuti.';
+                $this->ParameterModel->pushNotif($notif);
+            // } else {
+                // $id_cuti =  $this->PegawaiModel->add_cuti($data_post);
                 $notif['id_user'] =  $this->UserModel->get(['status_user' => 'Y', 'level' => 1], true)['id'];
                 $notif['link'] = 'admin/permohonan_cuti/?id=' . $id_cuti;
                 $notif['icon'] = 'far fa-user';
-                $notif['text'] = $this->session->userdata()['nama'] . ' telah mengajuan cuti baru kepada anda.';
+                $notif['text'] = $this->session->userdata()['nama'] . ' telah mengajuan cuti.';
                 $this->ParameterModel->pushNotif($notif);
-            }
+            // }
 
             $this->session->set_flashdata('pesan', 'Cuti berhasil ditambahkan');
             redirect('pegawai/cuti');

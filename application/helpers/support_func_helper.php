@@ -126,19 +126,15 @@ if (!function_exists('statusCuti')) {
 	function statusCuti($n, $d)
 	{
 		if ($n == 'acc_adm') {
-			return "Disetujui admin <br>Catatan Admin : " . $d['catatan_adm'] . "";
-		} else  if ($n == 'tol_adm') {
-			return "Ditolak admin <br>Catatan Admin : " . $d['catatan_adm'] . "";
-		} else  if ($n == 'rev_adm') {
-			return "Revisi <br>Catatan Admin : " . $d['catatan_adm'] . "";
+			return "Menunggu Persetujuan Kepala Sekolah";
 		}
 
 		if ($n == 'acc_kepsek') {
-			return "<span class='text-success'><i class='fa fa-check'></i>Selesai</span ><br>Disetujui admin <br>Catatan Admin : " . $d['catatan_adm'] . "<br>Disetujui Kepsek <br>Catatan Kepsek : " . $d['catatan_kepsek'] . "";
+			return "<span class='text-success'><i class='fa fa-check'></i>Selesai</span ><br>Disetujui Kepsek <br>Catatan Kepsek : " . $d['catatan_kepsek'] . "";
 		} else  if ($n == 'tol_kepsek') {
-			return "Disetujui admin <br>Catatan Admin : " . $d['catatan_adm'] . "<br>Ditolak Kepsek <br>Catatan Kepsek : " . $d['catatan_kepsek'] . "";
+			return "Ditolak Kepsek <br>Catatan Kepsek : " . $d['catatan_kepsek'] . "";
 		} else  if ($n == 'rev_kepsek') {
-			return "Disetujui admin <br>Catatan Admin : " . $d['catatan_adm'] . "<br>Revisi Kepsek <br>Catatan Kepsek : " . $d['catatan_kepsek'] . "";
+			return "Revisi Kepsek <br>Catatan Kepsek : " . $d['catatan_kepsek'] . "";
 		}
 
 		return 'Sedang diajukan';
